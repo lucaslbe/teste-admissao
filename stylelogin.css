@@ -135,8 +135,6 @@
   }
   label{
     color: #0098a4;
-    position: inherit;
-
   }
   
   /**** advanced input styling ****/
@@ -155,7 +153,7 @@
   }
   
   input:not([type="checkbox"]){
-    width: 80%;
+    width: 95%;
     margin-top: 4px;
     padding: 10px;	
     border: 1px solid #b2b2b2;
@@ -237,6 +235,10 @@
     border: 1px solid #11b8ca;
   }
   
+#valor_op{
+  width: 80%;
+}
+
   #label_reais{
     float: left;
     display: inline;
