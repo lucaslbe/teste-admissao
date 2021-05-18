@@ -80,6 +80,9 @@ if(!isset($_SESSION['email'])){
                             echo "<td>" . $row['op_pai'] . "</td>";
                             echo "<td>" . $row['status_op'] . "</td>";
                             echo "</tr>";
+                            if ($row['op_id'] > 0){
+                                $_SESSION['op_pac'] = $row['op_id'];
+                            }
                         }
                         echo "</table>";
                     }
@@ -98,25 +101,26 @@ if(!isset($_SESSION['email'])){
                     $dbname = "mysql";
                     
                     $conn = new mysqli ($host, $dbusername, $dbpassword, $dbname);
+                    echo "<table>";
+                        echo "<tr>";
+                            echo "<th>Operação pai do<br>Pacote</th>";
+                            echo "<th>Valor das Notas<br>Pacote</th>";
+                            echo "<th>Quantidade de<br>Notas</th>";
+                            echo "<th>Data de<br>Abertura</th>";
+                            echo "<th>Data de<br>Fechamento</th>";
+                        echo "</tr>";                
                     if (mysqli_connect_error()){
                         die('Connect Error('.mysqli_connect_errno().')');
                         mysqli_connect_error();
                         echo "ERRO1";
                     }
-                    else {
+                    else if (isset($_SESSION['op_pac'])){
                         $sql=("SELECT vlr_nota, op_id, qtd, dt_aber, nvl(dt_fim,' ') dt_fim
                                 FROM pacote
+                                where op_id = '$_SESSION[op_pac]'
                                 order by op_id");
                             
                         $result = $conn->query($sql);
-                        echo "<table>";
-                            echo "<tr>";
-                                echo "<th>Operação pai do<br>Pacote</th>";
-                                echo "<th>Valor das Notas<br>Pacote</th>";
-                                echo "<th>Quantidade de<br>Notas</th>";
-                                echo "<th>Data de<br>Abertura</th>";
-                                echo "<th>Data de<br>Fechamento</th>";
-                            echo "</tr>";                
                         while($row = $result->fetch_assoc()) {
                             echo "<tr>";
                             echo "<td>" . "<b>".$row['op_id'] . "</b></td>";
